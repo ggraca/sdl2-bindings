@@ -128,6 +128,50 @@ module SDL
     )
   end
 
+  class SysWMinfo_def_wl < FFI::Struct
+    layout(
+        :display, :pointer,
+        :surface, :pointer
+    )
+  end
+
+  class SysWMinfo_value_wl < FFI::Union
+    layout(
+        :wl, SysWMinfo_def_wl.by_value,
+        :dummy, [:uint8, 64]
+    )
+  end
+
+  class SysWMinfo_wl < FFI::Struct
+    layout(
+        :version, Version.by_value,
+        :subsystem, :int,
+        :info, SysWMinfo_value_wl.by_value
+    )
+  end
+
+  class SysWMinfo_def_x11 < FFI::Struct
+    layout(
+        :display, :pointer,
+        :window, :pointer
+    )
+  end
+
+  class SysWMinfo_value_x11 < FFI::Union
+    layout(
+        :x11, SysWMinfo_def_x11.by_value,
+        :dummy, [:uint8, 64]
+    )
+  end
+
+  class SysWMinfo_x11 < FFI::Struct
+    layout(
+        :version, Version.by_value,
+        :subsystem, :int,
+        :info, SysWMinfo_value_x11.by_value
+    )
+  end
+
 
   # Struct
 
